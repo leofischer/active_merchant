@@ -129,8 +129,20 @@ module ActiveMerchant #:nodoc:
 
               if options[:billing_agreement]
                 xml.tag! 'n2:BillingAgreementDetails' do
-                  xml.tag! 'n2:BillingType', options[:billing_agreement][:type]
-                  xml.tag! 'n2:BillingAgreementDescription', options[:billing_agreement][:description]
+                  if options[:billing_agreement][:billing_types]
+                      options[:billing_agreement][:billing_types].each_with_index do |billing_type, index|
+                          xml.tag! 'n2:L_BillingType' + index.to_s, billing_type
+                      end
+                  end
+
+                  if options[:billing_agreement][:billing_descriptions]
+                      options[:billing_agreement][:billing_descriptions].each_with_index do |billing_description, index|
+                          xml.tag! 'n2:L_BillingAgreementDescription' + index.to_s, billing_description
+                      end
+                  end
+
+                  xml.tag! 'n2:BillingType', options[:billing_agreement][:type] unless options[:billing_agreement][:type].blank?
+                  xml.tag! 'n2:BillingAgreementDescription', options[:billing_agreement][:description] unless options[:billing_agreement][:description].blank?
                   xml.tag! 'n2:PaymentType', options[:billing_agreement][:payment_type] || 'InstantOnly'
                 end
               end
