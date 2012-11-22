@@ -168,7 +168,7 @@ module ActiveMerchant #:nodoc:
             end
           end
         end
-
+        puts xml.target!
         xml.target!
       end
       
