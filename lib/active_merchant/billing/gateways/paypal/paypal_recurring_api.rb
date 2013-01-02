@@ -131,16 +131,16 @@ commit 'ManageRecurringPaymentsProfileStatus', build_manage_profile_request(prof
               xml.tag! 'n2:RecurringPaymentsProfileDetails' do
                 xml.tag! 'n2:BillingStartDate', (options[:start_date].is_a?(Date) ? options[:start_date].to_time : options[:start_date]).utc.iso8601
                 xml.tag! 'n2:ProfileReference', options[:profile_reference] unless options[:profile_reference].blank?
-                xml.tag! 'n2:SubscriberName', options[:subscriber_name] unless options[:subscriber_name].blank?
-                xml.tag! 'n2:SubscriberShippingAddress' do
-                    xml.tag! 'n2:Name', options[:shipping_name] unless options[:shipping_name].blank?
-                    xml.tag! 'n2:Street1', options[:shipping_street] unless options[:shipping_street].blank?
-                    xml.tag! 'n2:CityName', options[:shipping_city] unless options[:shipping_city].blank?
-                    xml.tag! 'n2:StateOrProvince', options[:shipping_state] unless options[:shipping_state].blank?
-                    xml.tag! 'n2:Country', options[:shipping_country_code] unless options[:shipping_country_code].blank?
-                    xml.tag! 'n2:CountryName', options[:shipping_country] unless options[:shipping_country].blank?
-                    xml.tag! 'n2:PostalCode', options[:shipping_postal_code] unless options[:shipping_postal_code].blank?
-                end
+                #xml.tag! 'n2:SubscriberName', options[:subscriber_name] unless options[:subscriber_name].blank?
+                #xml.tag! 'n2:SubscriberShippingAddress' do
+                #    xml.tag! 'n2:Name', options[:shipping_name] unless options[:shipping_name].blank?
+                #    xml.tag! 'n2:Street1', options[:shipping_street] unless options[:shipping_street].blank?
+                #    xml.tag! 'n2:CityName', options[:shipping_city] unless options[:shipping_city].blank?
+                #    xml.tag! 'n2:StateOrProvince', options[:shipping_state] unless options[:shipping_state].blank?
+                #    xml.tag! 'n2:Country', options[:shipping_country_code] unless options[:shipping_country_code].blank?
+                #    xml.tag! 'n2:CountryName', options[:shipping_country] unless options[:shipping_country].blank?
+                #    xml.tag! 'n2:PostalCode', options[:shipping_postal_code] unless options[:shipping_postal_code].blank?
+                #end
               end
               xml.tag! 'n2:ScheduleDetails' do
                 xml.tag! 'n2:Description', options[:description]
