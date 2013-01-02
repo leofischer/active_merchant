@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/paypal_common_api'
 
+#documentation: https://www.x.com/developers/paypal/documentation-tools/api/createrecurringpaymentsprofile-api-operation-soap
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     # This module is included in both PaypalGateway and PaypalExpressGateway
@@ -122,14 +123,24 @@ commit 'ManageRecurringPaymentsProfileStatus', build_manage_profile_request(prof
         xml.tag! 'CreateRecurringPaymentsProfileReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'CreateRecurringPaymentsProfileRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
+            xml.tag! 'n2:Token', options[:token] unless options[:token].blank?
             xml.tag! 'n2:CreateRecurringPaymentsProfileRequestDetails' do
-              xml.tag! 'Token', options[:token] unless options[:token].blank?
               if options[:credit_card]
                 add_credit_card(xml, options[:credit_card], (options[:billing_address] || options[:address]), options)
               end
               xml.tag! 'n2:RecurringPaymentsProfileDetails' do
                 xml.tag! 'n2:BillingStartDate', (options[:start_date].is_a?(Date) ? options[:start_date].to_time : options[:start_date]).utc.iso8601
                 xml.tag! 'n2:ProfileReference', options[:profile_reference] unless options[:profile_reference].blank?
+                xml.tag! 'n2:SubscriberName', options[:subscriber_name] unless options[:subscriber_name].blank?
+                xml.tag! 'n2:SubscriberShippingAddress' do
+                    xml.tag! 'n2:Name', options[:shipping_name] unless options[:shipping_name].blank?
+                    xml.tag! 'n2:Street1', options[:shipping_street] unless options[:shipping_street].blank?
+                    xml.tag! 'n2:CityName', options[:shipping_city] unless options[:shipping_city].blank?
+                    xml.tag! 'n2:StateOrProvince', options[:shipping_state] unless options[:shipping_state].blank?
+                    xml.tag! 'n2:Country', options[:shipping_country_code] unless options[:shipping_country_code].blank?
+                    xml.tag! 'n2:CountryName', options[:shipping_country] unless options[:shipping_country].blank?
+                    xml.tag! 'n2:PostalCode', options[:shipping_postal_code] unless options[:shipping_postal_code].blank?
+                end
               end
               xml.tag! 'n2:ScheduleDetails' do
                 xml.tag! 'n2:Description', options[:description]
