@@ -132,11 +132,11 @@ module ActiveMerchant #:nodoc:
               if options[:billing_agreement]
                 xml.tag! 'n2:BillingAgreementDetails' do
                   if options[:billing_agreement][:billing_type]
-                      xml.tag! 'n2:BillingType' + index.to_s, options[:billing_agreement][:billing_type]
+                      xml.tag! 'n2:BillingType' + options[:billing_agreement][:billing_type]
                   end
 
                   if options[:billing_agreement][:billing_description]
-                      xml.tag! 'n2:BillingAgreementDescription' + index.to_s, options[:billing_agreement][:billing_description]
+                      xml.tag! 'n2:BillingAgreementDescription', options[:billing_agreement][:billing_description]
                   end
 
                   xml.tag! 'n2:BillingType', options[:billing_agreement][:type] unless options[:billing_agreement][:type].blank?
