@@ -123,8 +123,8 @@ commit 'ManageRecurringPaymentsProfileStatus', build_manage_profile_request(prof
         xml.tag! 'CreateRecurringPaymentsProfileReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'CreateRecurringPaymentsProfileRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
-            xml.tag! 'n2:Token', options[:token] unless options[:token].blank?
             xml.tag! 'n2:CreateRecurringPaymentsProfileRequestDetails' do
+              xml.tag! 'n2:Token', options[:token] unless options[:token].blank?
               if options[:credit_card]
                 add_credit_card(xml, options[:credit_card], (options[:billing_address] || options[:address]), options)
               end
