@@ -131,16 +131,12 @@ module ActiveMerchant #:nodoc:
 
               if options[:billing_agreement]
                 xml.tag! 'n2:BillingAgreementDetails' do
-                  if options[:billing_agreement][:billing_types]
-                      options[:billing_agreement][:billing_types].each_with_index do |billing_type, index|
-                          xml.tag! 'n2:L_BillingType' + index.to_s, billing_type
-                      end
+                  if options[:billing_agreement][:billing_type]
+                      xml.tag! 'n2:BillingType' + index.to_s, options[:billing_agreement][:billing_type]
                   end
 
-                  if options[:billing_agreement][:billing_descriptions]
-                      options[:billing_agreement][:billing_descriptions].each_with_index do |billing_description, index|
-                          xml.tag! 'n2:L_BillingAgreementDescription' + index.to_s, billing_description
-                      end
+                  if options[:billing_agreement][:billing_description]
+                      xml.tag! 'n2:BillingAgreementDescription' + index.to_s, options[:billing_agreement][:billing_description]
                   end
 
                   xml.tag! 'n2:BillingType', options[:billing_agreement][:type] unless options[:billing_agreement][:type].blank?
