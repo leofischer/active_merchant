@@ -17,6 +17,10 @@ module ActiveMerchant #:nodoc:
       def token
         @params['Token']
       end
+
+      def profile_id
+        @params['profile_id'] || @params['ProfileID']
+      end
       
       def payer_id
         info['PayerID']
